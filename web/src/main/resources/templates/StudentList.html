@@ -1,0 +1,49 @@
+<!--suppress ALL-->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>学生查询</title>
+
+</head>
+<body>
+
+<table th:border="1" th:align="center">
+
+    <tr th:align="center">
+        <td colspan="7">
+            <a th:href="@{/stu/toAddStudent}">
+                <button>添加</button>
+            </a>
+        </td>
+    </tr>
+
+    <tr th:border="1">
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>班级</th>
+        <th>出生日期</th>
+        <th>操作</th>
+    </tr>
+
+    <tr th:each="student:${studentList}">
+        <td th:text="${student.studentId}">学号</td>
+        <td th:text="${student.name}">姓名</td>
+        <td th:text="${student.age}">年龄</td>
+        <td th:text="${student.sex}">性别</td>
+        <td th:text="${student.className}">班级</td>
+        <td th:text="${#dates.format(student.birth, 'yyyy-MM-dd')}">出生日期</td>
+        <td>
+            <a id="update" th:href="@{'/stu/delStudent/'+${student.id}}">修改</a>
+            <a th:href="@{'/stu/delStudent/'+${student.id}}">删除</a>
+        </td>
+    </tr>
+
+
+
+</table>
+
+</body>
+</html>

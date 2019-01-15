@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+<script type="text/javascript" th:src="@{/jquery/jquery-1.9.1.js}"></script>
+<script type="text/javascript">
+
+    window.onload = function () {
+
+        //创建日期
+        var date = new Date();
+        alert(date);
+        //得到当前的年份
+        var year = date.getFullYear();
+        alert(year);
+        //得到最早年份
+        var lowYear = year - 90;
+        //将年份选择框选定
+        var yearOption = document.getElementById("year");
+
+        //在该选择框下遍历添加年份节点
+        for (var y = lowYear; y <= year; y++) {
+            var optionElement = document.createElement("option");
+            optionElement.setAttribute("value",y);
+            optionElement.setAttribute("text",y);
+            yearOption.appendChild(optionElement);
+        }
+
+        //选定月份选择框,并添加月份节点
+        var monthOption = document.getElementById("month");
+        for (var m = 1; m <= 12; m++) {
+            if (m < 10) {
+                m = '0' + m;
+            }
+            var mElement = document.createElement("option");
+            mElement.setAttribute("value",m);
+            mElement.setAttribute("text",m);
+            monthOption.appendChild(mElement);
+        }
+        //选定日选择框,添加日节点
+        var dayOption = document.getElementById("day");
+        for (var d = 1; d <= 31; d++) {
+            if (d < 10) {
+                d = '0' + d;
+            }
+            var dElement = document.createElement("option");
+            dElement.setAttribute("value",d);
+            dElement.setAttribute("text",d);
+            dayOption.appendChild(dElement);
+        }
+
+    }
+
+
+</script>
+
+</head>
+<body>
+
+<form th:action="@{/stu/addStudent}" method="post">
+    <input type="hidden" value="" name="id"/>
+
+    <label>
+        学号:
+        <input type="text" name="studentId"/>
+    </label><br>
+
+    <label>
+        姓名:
+        <input type="text" name="name"/>
+    </label><br>
+
+    <label>
+        年龄:
+        <input type="text" name="age"/>
+    </label><br>
+
+    <label>
+        性别:
+        <select name="sex">
+            <option value="男">男</option>
+            <option value="女">女</option>
+        </select>
+    </label><br>
+
+    <label>
+    出生日期:
+        <select id="year" name="year"></select>年
+        <select id="month" name="month"></select>月
+        <select id="day" name="day"></select>日
+    </label><br>
+
+    <label>
+        班级:
+        <select name="classid">
+            <option th:each="class : ${classList}" th:value="${class.id}" th:text="${class.classname}">班级</option>
+        </select>
+    </label>
+    <input type="submit" value="提交"/>
+    <input type="reset" value="重置"/>
+</form>
+
+</body>
+</html>

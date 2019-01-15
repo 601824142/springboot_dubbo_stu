@@ -1,0 +1,15 @@
+#服务端口
+server:
+  port: 8080
+
+#配置dubbo
+dubbo:
+  application:
+    name: web
+  registry:
+    address: zookeeper://47.112.22.169:2181
+
+#配置模板缓存
+spring:
+  thymeleaf:
+    cache: false
